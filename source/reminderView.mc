@@ -80,15 +80,18 @@ class reminderView extends WatchUi.View {
         }
         if (_showingNotification) {
             var w = dc.getWidth();
-            var h = dc.getHeight();
             var msg = "Check your posture!";
-            var font = Graphics.FONT_LARGE;
+            var font = Graphics.FONT_SMALL;
             var textHeight = dc.getFontHeight(font);
-            var y = (h - textHeight) / 2;
+            var padding = 8;
+            var toastHeight = textHeight + padding * 2;
+            // Fill a solid black rectangle at the top (no alpha support)
+            for (var y = 0; y < toastHeight; y++) {
+                dc.drawLine(0, y, w, y);
+            }
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-            dc.clear();
-            // Center horizontally by using TEXT_JUSTIFY_CENTER
-            dc.drawText(w / 2, y, font, msg, Graphics.TEXT_JUSTIFY_CENTER);
+            // Center text horizontally, align to top
+            dc.drawText(w / 2, padding, font, msg, Graphics.TEXT_JUSTIFY_CENTER);
         }
     }
 
