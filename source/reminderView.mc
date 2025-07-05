@@ -23,11 +23,7 @@ class reminderView extends WatchUi.View {
         _startReminderTimer();
     }
 
-    // Update the view
-    function onUpdate(dc as Dc) as Void {
-        // Call the parent onUpdate function to redraw the layout
-        View.onUpdate(dc);
-    }
+    // ...existing code...
 
     // Called when this View is removed from the screen. Save the
     // state of this View here. This includes freeing resources from
@@ -78,19 +74,21 @@ class reminderView extends WatchUi.View {
     }
 
     function onUpdate(dc as Dc) as Void {
-        View.onUpdate(dc);
+        // Only call parent if not showing notification, to avoid flicker
+        if (!_showingNotification) {
+            View.onUpdate(dc);
+        }
         if (_showingNotification) {
             var w = dc.getWidth();
             var h = dc.getHeight();
             var msg = "Check your posture!";
-            var font = Graphics.FONT_XLARGE;
-            var textWidth = dc.getTextWidth(msg, font);
+            var font = Graphics.FONT_LARGE;
             var textHeight = dc.getFontHeight(font);
-            var x = (w - textWidth) / 2;
             var y = (h - textHeight) / 2;
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
             dc.clear();
-            dc.drawText(x, y, font, msg, Graphics.TEXT_JUSTIFY_LEFT);
+            // Center horizontally by using TEXT_JUSTIFY_CENTER
+            dc.drawText(w / 2, y, font, msg, Graphics.TEXT_JUSTIFY_CENTER);
         }
     }
 
