@@ -1,0 +1,23 @@
+# Ignore build output
+bin/
+
+# Ignore Monkey C intermediate files
+*.mir
+*.mcgen
+*.mbc
+
+# Ignore IDE/project files
+*.iml
+.idea/
+*.vscode/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore backup files
+*~
+*.bak
+
+# Ignore logs
+*.log
